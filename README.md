@@ -27,11 +27,13 @@ defmodule Mm do
 
 
 defmodule MyPlug do
-  use Components, only: [dispatch: 1]
+  use Components
 
-  def call(conn, opts)queryset(qs)) do
-    conn = conn |> dispatch
-    conn |> send_resp(200, "done")
+  def call(conn, opts) do
+    conn |> get queryset(qs) do
+      objects = qs |> Jason.encode!
+      conn |> send_resp(200, objects)
+    end
   end
 end
 ```
