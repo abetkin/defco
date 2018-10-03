@@ -30,10 +30,9 @@ defmodule MyPlug do
   use Components
 
   def call(conn, opts) do
-    conn |> get queryset(qs) do
-      objects = qs |> Jason.encode!
-      conn |> send_resp(200, objects)
-    end
+    qs = conn |> get(:queryset)
+    objects = qs |> Jason.encode!
+    conn |> send_resp(200, objects)
   end
 end
 ```
