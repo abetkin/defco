@@ -1,5 +1,6 @@
 ## Defco
 
+i.e. define-components
 
 This will be a dependency injection framework. Notes are mostly for myself
 
