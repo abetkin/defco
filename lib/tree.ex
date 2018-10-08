@@ -1,10 +1,7 @@
-
-
-
 defmodule My.Node do
   defstruct [
     :name,
-    :children,
+    :children
   ]
 end
 
@@ -20,7 +17,7 @@ defmodule My.Tree do
   end
 
   def process([], result, _opts) do
-    result |> Enum.reverse()
+    result |> Enum.reverse() |> Enum.uniq()
   end
 
   def process([%Node{children: nil} = node | rest], result, config: config) do
@@ -29,15 +26,18 @@ defmodule My.Tree do
     process([new_node | rest], result, config: config)
   end
 
-  def process([%Node{children: []} = node | rest], result, opts)  do
+  def process([%Node{children: []} = node | rest], result, opts) do
     process(rest, [node.name | result], opts)
   end
 
   def process([%Node{children: [last | children]} = prev | rest], result, opts) do
-    process([
-      %Node{name: last}, %Node{prev | children: children} | rest
-    ], result, opts)
+    process(
+      [
+        %Node{name: last},
+        %Node{prev | children: children} | rest
+      ],
+      result,
+      opts
+    )
   end
-
 end
-
